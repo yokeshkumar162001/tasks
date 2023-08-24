@@ -1,0 +1,20 @@
+name: Server Action
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  perform_server_action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Execute command on server
+        run: |
+          ssh user@15.206.70.132 "date"
