@@ -2,8 +2,8 @@ name: SSL Expiry Check
 
 on:
   schedule:
-    - cron: '* * * * *'  # Schedule to run daily at midnight
-  workflow_dispatch:  # Allow manual triggering
+    - cron: '* * * * *' 
+  workflow_dispatch:  
 
 jobs:
   check_ssl_expiry:
@@ -24,7 +24,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          domains=("https://google.com")  # Add your domain names here
+          domains=("https://google.com")  
           for domain in "${domains[@]}"; do
             expiration_date=$(openssl s_client -connect "${domain}":443 -servername "${domain}" </dev/null 2>/dev/null | openssl x509 -enddate -noout | cut -d "=" -f 2)
             expiration_unix=$(date -d "${expiration_date}" +%s)
