@@ -31,9 +31,7 @@ jobs:
             current_unix=$(date +%s)
             remaining_days=$(( (expiration_unix - current_unix) / 86400 ))
 
-            message="SSL Expiry Alert\n
-   * Domain : ${domain}\n
-   * Warning : The SSL certificate for ${domain} will expire in ${remaining_days} days."
+            message="SSL Expiry Alert\n * Domain : ${domain}\n * Warning : The SSL certificate for ${domain} will expire in ${remaining_days} days."
 
             curl -X POST -H 'Content-type: application/json' --data "{'text':'${message}'}" "${SLACK_WEBHOOK_URL}"
           done
