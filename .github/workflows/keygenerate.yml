@@ -17,4 +17,4 @@ jobs:
 
       - name: Execute command on server
         run: |
-          ssh ubuntu@ip-172-31-38-219 "date"
+          ssh ubuntu@172-31-38-219 "date"
