@@ -13,9 +13,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install required packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
       - name: Run SSL expiry check and send alerts
         run: |
-          chmod +x .github/scripts/ssl_expiry_check.sh
-          ./.github/scripts/ssl_expiry_check.sh
+          python .github/scripts/ssl_expiry_check.py
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
